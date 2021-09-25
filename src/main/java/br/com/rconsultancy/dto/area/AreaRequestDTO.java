@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AreaRequestDTO {
+public class AreaRequestDTO extends AreaAbstractDTO{
 
 	private Long idCliente;
 }

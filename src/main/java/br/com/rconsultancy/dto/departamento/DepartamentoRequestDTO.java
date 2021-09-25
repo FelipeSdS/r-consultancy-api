@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class DepartamentoRequestDTO extends DepartamentoAbstractDTO{
 	
-	private Long idCliente;
+	private Long idArea;
 }

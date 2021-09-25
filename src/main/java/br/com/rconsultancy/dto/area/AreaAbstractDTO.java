@@ -7,6 +7,8 @@ public abstract class AreaAbstractDTO {
 
 	private String txNome;
 	
+	private String txSigla;
+	
 	private String txGerente;
 	
 	private String txEmail;

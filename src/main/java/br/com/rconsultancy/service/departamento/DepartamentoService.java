@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.rconsultancy.dto.departamento.DepartamentoRequestDTO;
 import br.com.rconsultancy.dto.departamento.DepartamentoResponseDTO;
+import br.com.rconsultancy.exception.NotRecordFoundException;
+import br.com.rconsultancy.model.areas.Area;
 import br.com.rconsultancy.model.departamentos.Departamento;
+import br.com.rconsultancy.repository.area.AreaRepository;
 import br.com.rconsultancy.repository.departamento.DepartamentoRepository;
 
 @Service
@@ -17,6 +20,9 @@ public class DepartamentoService {
 
 	@Autowired
 	private DepartamentoRepository departamentoRepository;
+	
+	@Autowired
+	private AreaRepository areaRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -31,12 +37,14 @@ public class DepartamentoService {
 		return departamentos
 				 .stream()
 				 .map(x -> convertResponse(x))
-				 .collect(Collectors.toList());
-					
+				 .collect(Collectors.toList());					
 	}
 	
 	private Departamento convertModel(DepartamentoRequestDTO dto) {
-		Departamento model = modelMapper.map(dto, Departamento.class);
+		Departamento model = modelMapper.map(dto, Departamento.class);		
+		Area area = areaRepository.findById(dto.getIdArea())
+				.orElseThrow(() -> new NotRecordFoundException("Código da area inválido."));
+		model.setArea(area);
 		return model;
 	}
 	
