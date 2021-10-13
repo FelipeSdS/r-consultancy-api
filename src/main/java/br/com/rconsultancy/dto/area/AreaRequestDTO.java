@@ -8,4 +8,5 @@ import lombok.Setter;
 public class AreaRequestDTO extends AreaAbstractDTO{
 
 	private Long idCliente;
+
 }

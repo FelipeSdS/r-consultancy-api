@@ -3,16 +3,13 @@ package br.com.rconsultancy.service.departamento;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.rconsultancy.dto.departamento.DepartamentoRequestDTO;
 import br.com.rconsultancy.dto.departamento.DepartamentoResponseDTO;
-import br.com.rconsultancy.exception.NotRecordFoundException;
-import br.com.rconsultancy.model.areas.Area;
+import br.com.rconsultancy.mapper.departamento.DepartamentoMapper;
 import br.com.rconsultancy.model.departamentos.Departamento;
-import br.com.rconsultancy.repository.area.AreaRepository;
 import br.com.rconsultancy.repository.departamento.DepartamentoRepository;
 
 @Service
@@ -22,13 +19,10 @@ public class DepartamentoService {
 	private DepartamentoRepository departamentoRepository;
 	
 	@Autowired
-	private AreaRepository areaRepository;
-	
-	@Autowired
-	private ModelMapper modelMapper;
+	private DepartamentoMapper departamentoMapper;
 	
 	public void save(DepartamentoRequestDTO dto) {
-		Departamento departamento = convertModel(dto);
+		Departamento departamento = departamentoMapper.requestToModel(dto);
 		departamentoRepository.save(departamento);
 	}
 	
@@ -36,20 +30,7 @@ public class DepartamentoService {
 		List<Departamento> departamentos = departamentoRepository.findByArea_idArea(idArea);
 		return departamentos
 				 .stream()
-				 .map(x -> convertResponse(x))
+				 .map(x -> departamentoMapper.modelToResponse(x))
 				 .collect(Collectors.toList());					
-	}
-	
-	private Departamento convertModel(DepartamentoRequestDTO dto) {
-		Departamento model = modelMapper.map(dto, Departamento.class);		
-		Area area = areaRepository.findById(dto.getIdArea())
-				.orElseThrow(() -> new NotRecordFoundException("Código da area inválido."));
-		model.setArea(area);
-		return model;
-	}
-	
-	private DepartamentoResponseDTO convertResponse(Departamento departamento) {
-		DepartamentoResponseDTO dto = modelMapper.map(departamento, DepartamentoResponseDTO.class);
-		return dto;
 	}
 }
