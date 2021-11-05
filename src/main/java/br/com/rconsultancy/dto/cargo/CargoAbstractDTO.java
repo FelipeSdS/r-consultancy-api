@@ -1,6 +1,5 @@
 package br.com.rconsultancy.dto.cargo;
 
-import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,16 +8,16 @@ import lombok.Data;
 @Data
 public abstract class CargoAbstractDTO {
 	
-	@JsonProperty("tx_nome")
+	@JsonProperty("txNome")
 	private String txNome;
 	
-	@JsonProperty("tx_descricao")
+	@JsonProperty("txDescricao")
 	private String txDescricao;
 	
-	@JsonProperty("vl_base_salarial")
-	private BigDecimal vlBaseSalarial;
+	@JsonProperty("vlBaseSalarial")
+	private String vlBaseSalarial;
 	
-	@JsonProperty("tx_nivel")
+	@JsonProperty("txNivel")
 	private String txNivel;
 
 }

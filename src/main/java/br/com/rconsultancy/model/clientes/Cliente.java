@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import br.com.rconsultancy.model.areas.Area;
+import br.com.rconsultancy.model.funcionarios.Funcionario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -82,4 +83,7 @@ public class Cliente {
 	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Area> areas;
+	
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Funcionario> funcionarios;
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,16 +13,15 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import br.com.rconsultancy.model.departamentos.Departamento;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "tab_cargo")
 public class Cargo {
 
 	@Id
+	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name= "id_cargo")
 	private Long idCargo;
@@ -41,4 +41,5 @@ public class Cargo {
 	@ManyToOne
 	@JoinColumn(name = "id_departamento")
 	private Departamento departamento;
+	
 }
