@@ -27,6 +27,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 			 "on c.id_departamento = d.id_departamento " +
 			"inner join tab_area a " +
 			 "on d.id_area = a.id_area " +
-			"where a.id_area = :id_area", nativeQuery = true)
+			"where a.id_area = :idArea", nativeQuery = true)
 	public List<Funcionario> buscarFunciarioPorArea(@Param("idArea") Long idArea);
 }
